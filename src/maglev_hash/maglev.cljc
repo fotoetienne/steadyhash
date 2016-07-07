@@ -1,7 +1,7 @@
 (ns maglev-hash.maglev)
 
 (def h1 hash)
-(def h2 (comp hash hash))
+(def h2 (comp hash #(str "h2" %)))
 
 (defn permutations
   "Lazy seq of permutations for a node"
@@ -24,8 +24,7 @@
 (defn next-prime
   "Return next prime number >= n"
   [n]
-  (if (nil? n) 2
-      (first (filter #(>= % n) primes))))
+  (first (filter #(>= % n) primes)))
 
 (defn populate
   "Populate Maglev hashing lookup table
