@@ -1,4 +1,4 @@
-(ns maglev-hash.core)
+(ns maglev-hash.maglev)
 
 (def h1 hash)
 (def h2 (comp hash hash))
@@ -24,22 +24,8 @@
 (defn next-prime
   "Return next prime number >= n"
   [n]
-  (first (filter #(>= % n) primes)))
-
-;; (defn populate
-;;   "Populate Maglev hashing lookup table
-;;   (See Maglev paper page 6)"
-;;   ([nodes] (populate nodes (-> nodes count (* 100) next-prime)))
-;;   ([nodes m]
-;;    (loop [entries {}
-;;           preferences (permutations* m (sort nodes))
-;;           n 0]
-;;      (let [[[node entry] & next] preferences]
-;;        (if (= n m)
-;;          (->> entries (into (sorted-map)) (map second))
-;;          (if (entries entry)
-;;            (recur entries next n)
-;;            (recur (assoc entries entry node) next (inc n))))))))
+  (if (nil? n) 2
+      (first (filter #(>= % n) primes))))
 
 (defn populate
   "Populate Maglev hashing lookup table
