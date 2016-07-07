@@ -21,16 +21,16 @@ Stable hashing can be used to decide
     - If buckets are “caching servers”, we can use hashing to maximize reuse of the same caching servers for the same URLs
   - Task assignment in distributed computing
 
+## Rendezvous
+Simple algorithm for stable hashing, also known as Highest Random Weight (HRW).
+
+https://en.wikipedia.org/wiki/Rendezvous_hashing
+
 ## Maglev Hash
 Consistent Hashing using the "Maglev Hash" method as described in Google's 2016 Maglev paper.
 
 See Section 3.4:
 http://static.googleusercontent.com/media/research.google.com/en//pubs/archive/44824.pdf
-
-## Rendezvous
-Also know as Highest Random Weight (HRW)
-
-https://en.wikipedia.org/wiki/Rendezvous_hashing
 
 ## Weighted Rendezvous Hashing
 Coming soon...
@@ -60,8 +60,9 @@ See that the table is evenly distributed
 
 ## TODO
 
+ - [x] Rendezvous implementation
+ - [x] Maglev implementation
  - [ ] Churn test
- - [ ] Rendezvous implementation
  - [ ] Performance tests
 
 ## References
