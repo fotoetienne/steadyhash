@@ -1,6 +1,6 @@
-(defproject maglev-hash "0.1.0-SNAPSHOT"
+(defproject steadyhash "0.1.0-SNAPSHOT"
   :description "Library for Consistent Hashing"
-  :url "http://github.com/fotoetienne/consistent-hash"
+  :url "http://github.com/fotoetienne/steadyhash"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
@@ -27,5 +27,5 @@
   :cljsbuild {:builds
               {:test {:source-paths ["src" "test"]
                       :compiler {:output-to "target/unit-test.js"
-                                 :main 'maglev-hash.runner
+                                 :main 'steadyhash.runner
                                  :optimizations :whitespace}}}})

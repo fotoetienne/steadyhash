@@ -1,8 +1,8 @@
-(ns maglev-hash.maglev-test
+(ns steadyhash.maglev-test
   (:require
    #?(:clj  [clojure.test :refer :all]
       :cljs [cljs.test :refer-macros [deftest testing is]])
-   [maglev-hash.maglev :as m]
+   [steadyhash.maglev :as m]
    [clojure.test.check :as tc]
    [clojure.test.check.generators :as gen]
    [clojure.test.check.properties :as prop :include-macros true]
@@ -12,13 +12,12 @@
 (def gen-node-id gen/uuid)
 (def gen-nodes (gen/not-empty (gen/vector gen-node-id 1 11)))
 
-(def iterations
+(def N "Number of quickcheck iterations per test"
   #?(:clj 100
      :cljs 10)) ; Because javascript is dog slow
 
-;; "Nodes can be listed in any order"
-(defspec permutations-are-unique
-  iterations
+;; "Permutations for a node only list each entry once"
+(defspec permutations-are-unique N
   (prop/for-all [node gen-node-id
                  m gen/pos-int]
     (let [ps (m/permutations (m/next-prime (* m 100)) node)]
@@ -26,15 +25,13 @@
          (count (set ps))))))
 
 ;; "Nodes can be listed in any order"
-(defspec populate-is-commutative
-  iterations
+(defspec populate-is-commutative N
   (prop/for-all [nodes gen-nodes]
     (= (m/populate nodes)
        (m/populate (shuffle nodes)))))
 
 ;; "Each node gets roughly the same allocation"
-(defspec populate-is-fair
-  iterations
+(defspec populate-is-fair N
   (prop/for-all [nodes gen-nodes]
     (let [nodes (set nodes)
           n (count nodes)
@@ -60,16 +57,14 @@
                   (if (zero? (mod n i)) false
                       (recur (+ i 2))))))))
 
-(defspec next-prime-is-prime
-  iterations
+(defspec next-prime-is-prime N
   (prop/for-all [n gen/nat]
     (let [p (m/next-prime n)]
       (prime? p))))
 
 
 ;; "Each node gets roughly the same allocation"
-(defspec lookups-are-fair
-  iterations
+(defspec lookups-are-fair N
   (prop/for-all [nodes (gen/vector gen/uuid 2 20)]
     (let [n 1e3 ; number of lookups
           nodes (set nodes)

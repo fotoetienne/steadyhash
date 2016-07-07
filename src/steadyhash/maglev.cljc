@@ -1,4 +1,4 @@
-(ns maglev-hash.maglev)
+(ns steadyhash.maglev)
 
 (def h1 hash)
 (def h2 (comp hash #(str "h2" %)))
@@ -52,9 +52,7 @@
 (comment
   (def table (populate [:a :b :c :d]))
   (lookup table :foo) ; => :d
-  (lookup table :bar) ; => :a
+  (lookup table :bar) ; => :c
 
-  (->> (populate ["a" "b" "c"])
-    frequencies
-    (into (sorted-map))) ;  => {"a" 103, "b" 102, "c" 102}
+  (frequencies table) ; => {:c 100, :b 100, :d 100, :a 101}
 )
