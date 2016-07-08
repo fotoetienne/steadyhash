@@ -37,6 +37,13 @@ http://static.googleusercontent.com/media/research.google.com/en//pubs/archive/4
 Coming soon...
 
 ## Usage
+### Installation
+
+Add the following dependency to your `project.clj` file
+
+[![Clojars Project](https://img.shields.io/clojars/v/steadyhash.svg)](https://clojars.org/steadyhash)
+
+As steadyhash uses Clojure's reader conditionals, steadyhash is dependent on both Clojure 1.7 and Leiningen 2.5.2 or later.
 
 ### Maglev hashing
 

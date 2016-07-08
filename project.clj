@@ -22,9 +22,6 @@
 
   :jar-exclusions [#"\.swp|\.swo|\.DS_Store"]
 
-  :lein-release {:deploy-via :shell
-                 :shell ["lein" "deploy"]}
-
   :doo {:paths {:rhino "lein run -m org.mozilla.javascript.tools.shell.Main"}}
 
   :cljsbuild {:builds
