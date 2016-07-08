@@ -1,6 +1,7 @@
 # Steady Hash
 *Stable Hashing implementations in Clojure[Script]*
 
+[![Clojars Project](https://img.shields.io/clojars/v/steadyhash.svg)](https://clojars.org/steadyhash)
 [![Build Status](https://travis-ci.org/fotoetienne/steadyhash.svg?branch=master)](https://travis-ci.org/fotoetienne/steadyhash)
 
 Hash tables allow deterministic mapping of keys to velues.
@@ -33,18 +34,7 @@ Consistent Hashing using the "Maglev Hash" method as described in Google's 2016 
 See Section 3.4:
 http://static.googleusercontent.com/media/research.google.com/en//pubs/archive/44824.pdf
 
-## Weighted Rendezvous Hashing
-Coming soon...
-
 ## Usage
-### Installation
-
-Add the following dependency to your `project.clj` file
-
-[![Clojars Project](https://img.shields.io/clojars/v/steadyhash.svg)](https://clojars.org/steadyhash)
-
-As steadyhash uses Clojure's reader conditionals, steadyhash is dependent on both Clojure 1.7 and Leiningen 2.5.2 or later.
-
 ### Maglev hashing
 
   (require '[stable-hash.maglev :as m])
@@ -65,6 +55,9 @@ See that the table is evenly distributed
   (frequencies table)
   ;; => {:c 100, :b 100, :d 100, :a 101}
 
+### Requirements
+
+As steadyhash uses Clojure's reader conditionals, steadyhash is dependent on both Clojure 1.7 and Leiningen 2.5.2 or later.
 
 ## TODO
 
@@ -72,12 +65,12 @@ See that the table is evenly distributed
  - [x] Maglev implementation
  - [ ] Churn test
  - [ ] Performance tests
+ - [ ] Weighted Rendezvous implementation [Source](http://www.snia.org/sites/default/files/SDC15_presentations/dist_sys/Jason_Resch_New_Consistent_Hashings_Rev.pdf)
 
 ## References
 
-Comparison of algorithms
-http://www.snia.org/sites/default/files/SDC15_presentations/dist_sys/Jason_Resch_New_Consistent_Hashings_Rev.pdf
-
+ - Maglev - http://static.googleusercontent.com/media/research.google.com/en//pubs/archive/44824.pdf
+ - Rendezvous - http://www.eecs.umich.edu/techreports/cse/96/CSE-TR-316-96.pdf
 
 ## License
 
