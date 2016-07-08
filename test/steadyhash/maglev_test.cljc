@@ -17,6 +17,8 @@
   #?(:clj 100
      :cljs 10)) ; Because javascript is dog slow
 
+#?(:cljs (def pmap map))
+
 ;; "Permutations for a node only list each entry once"
 (defspec permutations-are-unique N
   (prop/for-all [node gen-node-id
@@ -50,7 +52,7 @@
     (let [n 1e3 ; number of lookups
           nodes (set nodes)
           table (m/populate nodes)
-          lookups (map (partial m/lookup table) (range (* n (count nodes))))
+          lookups (pmap (partial m/lookup table) (range (* n (count nodes))))
           freqs (vals (frequencies lookups))
           percent-diff (-> (apply max freqs) (- n) (/ n) (* 100.0))]
       (or (< percent-diff 15)

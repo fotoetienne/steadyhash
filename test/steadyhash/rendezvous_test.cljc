@@ -17,6 +17,20 @@
   #?(:clj 100
      :cljs 10)) ; Because javascript is dog slow
 
+#?(:cljs (def pmap map))
+
+;; "Each node gets roughly the same allocation"
+(defspec highest-random-weight-is-fair (/ N 5)
+  (prop/for-all [nodes (gen/vector gen/uuid 2 20)]
+    (let [n 1e3 ; number of lookups
+          nodes (set nodes)
+          table (r/populate nodes)
+          lookups (pmap (partial r/highest-random-weight nodes) (range (* n (count nodes))))
+          freqs (vals (frequencies lookups))
+          percent-diff (-> (apply max freqs) (- n) (/ n) (* 100.0))]
+      (or (< percent-diff 15)
+          (println (count nodes) percent-diff)))))
+
 ;; "Nodes can be listed in any order"
 (defspec populate-is-commutative N
   (prop/for-all [nodes gen-nodes]
@@ -33,7 +47,7 @@
           table (r/populate nodes m)
           freqs (vals (frequencies table))
           percent-diff (-> (apply max freqs) (- avg) (/ avg) (* 100.0))]
-      (or (< percent-diff 30)
+      (or (< percent-diff 50)
           (println nodes (frequencies table) avg percent-diff)))))
 
 ;; "Each node gets roughly the same allocation"
@@ -42,10 +56,10 @@
     (let [n 1e3 ; number of lookups
           nodes (set nodes)
           table (r/populate nodes)
-          lookups (map (partial r/lookup table) (range (* n (count nodes))))
+          lookups (pmap (partial r/lookup table) (range (* n (count nodes))))
           freqs (vals (frequencies lookups))
           percent-diff (-> (apply max freqs) (- n) (/ n) (* 100.0))]
-      (or (< percent-diff 40)
+      (or (< percent-diff 60)
           (println (count nodes) percent-diff)))))
 
 (deftest interop-test
