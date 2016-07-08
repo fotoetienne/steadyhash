@@ -16,8 +16,8 @@
   - For each node, concat x with node-id, hashing the result
   - Return the node with the greatest resulting hash value"
   [nodes x]
-  (->> (for [n nodes] [n,(h1 (str n x))])
-    (apply max-key #(% 1))
+  (->> (for [n nodes] [n, (h1 (str n x))])
+    (apply max-key second)
     first))
 
 (defn populate
