@@ -1,4 +1,10 @@
 (ns steadyhash.maglev
+  "Maglev Hash
+  Consistent hashing using the 'Maglev Hash' method as described in Google's 2016 Maglev paper.
+  - Designed for cases where a lookup table is necessary because the number of nodes is high and latency needs to be minimal.
+  - Creates a lookup table where assignment differs among nodes by at most one.
+  - We choose the size of the lookup table to be > N * 100 (where N is the number of nodes) to ensure at most a 1% difference in hash space assigned to nodes.
+  - See Section 3.4: [Maglev: A Fast and Reliable Software Network Load Balancer](http://static.googleusercontent.com/media/research.google.com/en//pubs/archive/44824.pdf)"
   (:require [steadyhash.lib :refer [next-prime h1 h2]]))
 
 (defn permutations

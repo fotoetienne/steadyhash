@@ -1,13 +1,14 @@
 (ns steadyhash.rendezvous
-  ". Consistently shards buckets among a group of nodes
-   . Basically an implementation of [Rendezvous Hashing](https://en.wikipedia.org/wiki/Rendezvous_hashing)
-   . Each nodes buckets remain constant when view is the same
-   . When a node enters/leaves, most buckets remain with the same node. i.e.:
-     > New nodes take a few buckets from each of the existing nodes.
-     > Buckets belonging to dropped nodes are divied up among remaining nodes.
-   . Only piece of information exchanged is peer view
-   . Remains exactly as consistant as the peer view
-   . Could easily be modified to assign N nodes to each bucket"
+  "Rendevous Hash
+  Simple algorithm for stable hashing, also known as Highest Random Weight (HRW).
+  https://en.wikipedia.org/wiki/Rendezvous_hashing
+   - Each nodes assignments remain constant when view is the same
+   - When a node enters/leaves, most buckets remain with the same node. i.e.:
+     - New nodes take a few assignments from each of the existing nodes.
+     - Assignments belonging to dropped nodes are divied up among remaining nodes.
+   - Only piece of information exchanged is peer view
+   - Remains exactly as consistant as the peer view
+   - Could easily be modified to assign N nodes to each bucket"
   (:require [steadyhash.lib :as lib :refer [next-prime h1]]))
 
 (defn highest-random-weight

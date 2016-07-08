@@ -28,11 +28,21 @@ Simple algorithm for stable hashing, also known as Highest Random Weight (HRW).
 
 https://en.wikipedia.org/wiki/Rendezvous_hashing
 
-## Maglev Hash
-Consistent Hashing using the "Maglev Hash" method as described in Google's 2016 Maglev paper.
+  - Each nodes assignments remain constant when view is the same
+  - When a node enters/leaves, most buckets remain with the same node. i.e.:
+    - New nodes take a few assignments from each of the existing nodes.
+    - Assignments belonging to dropped nodes are divied up among remaining nodes.
+  - Only piece of information exchanged is peer view
+  - Remains exactly as consistant as the peer view
+  - Could easily be modified to assign N nodes to each bucket"
 
-See Section 3.4:
-http://static.googleusercontent.com/media/research.google.com/en//pubs/archive/44824.pdf
+## Maglev Hash
+Consistent hashing using the "Maglev Hash" method as described in Google's 2016 Maglev paper.
+
+  - Designed for cases where a lookup table is necessary because the number of nodes is high and latency needs to be minimal.
+  - Creates a lookup table where assignment differs among nodes by at most one.
+  - We choose the size of the lookup table to be > N * 100 (where N is the number of nodes) to ensure at most a 1% difference in hash space assigned to nodes.
+  - See Section 3.4: [Maglev: A Fast and Reliable Software Network Load Balancer](http://static.googleusercontent.com/media/research.google.com/en//pubs/archive/44824.pdf)
 
 ## Usage
 ### Rendezvous hashing
