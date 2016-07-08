@@ -1,8 +1,11 @@
 (defproject steadyhash "0.2.0-SNAPSHOT"
-  :description "Library for Consistent Hashing"
-  :url "http://github.com/fotoetienne/steadyhash"
+  :description "Stable Hashing implementations in Clojure[Script]"
+  :url "https://github.com/fotoetienne/steadyhash"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
+
+  :min-lein-version "2.5.2"
+  :jvm-opts ["-Xmx1g"]
 
   :dependencies []
 

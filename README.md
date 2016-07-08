@@ -1,6 +1,7 @@
 # Steady Hash
+*Stable Hashing implementations in Clojure[Script]*
 
-Stable Hashing implementations in Clojure[Script]
+[![Build Status](https://travis-ci.org/fotoetienne/steadyhash.svg?branch=master)](https://travis-ci.org/fotoetienne/steadyhash)
 
 Hash tables allow deterministic mapping of keys to velues.
 Stable hashing is a special kind of hashing such that when a hash table is resized, only K/n keys need to be remapped on average, where K is the number of keys, and n is the number of slots.
