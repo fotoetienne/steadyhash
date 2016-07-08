@@ -1,7 +1,25 @@
 language: clojure
+
+script: "lein test-$TEST_SUITE"
+
+env:
+  - TEST_SUITE=clj
+
+jdk:
+  - oraclejdk8
+  - oraclejdk7
+  - openjdk7
+
+matrix:
+  include:
+    - env: TEST_SUIT=cljs
+      jdk: oraclejdk8
+
 sudo: required
+
 before_install:
   - yes | sudo lein upgrade
+
 cache:
   directories:
     - $HOME/.m2

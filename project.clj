@@ -17,8 +17,10 @@
          :plugins [[lein-cljsbuild "1.1.3"]
                    [lein-doo "0.1.6"]]}}
 
-  :aliases {"deploy" ["do" "clean," "deploy" "clojars"]
-            "test" ["do" "clean," "test," "doo" "rhino" "test" "once"]}
+  :aliases {"test-clj" ["test"]
+            "test-cljs" ["doo" "rhino" "test" "once"]
+            "test-all" ["do" "clean," "test-clj," "test-cljs"]
+            "deploy" ["do" "clean," "deploy" "clojars"]}
 
   :jar-exclusions [#"\.swp|\.swo|\.DS_Store"]
 
