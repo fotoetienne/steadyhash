@@ -91,7 +91,8 @@ Look up values in the table.
     (m/lookup table :bar)
     ;; => :c
 
-See that the table is evenly distributed.
+Maglev is designed to create a lookup table where assignment differs among nodes by at most one.
+We choose the size of the lookup table to be > N * 100 (where N is the number of nodes) to ensure at most a 1% difference in hash space assigned to nodes.
 
     (frequencies table)
     ;; => {:a 101, :b 100, :c 100, :d 100}
