@@ -1,4 +1,4 @@
-(defproject steadyhash "0.2.0-SNAPSHOT"
+(defproject steadyhash "0.2.0"
   :description "Stable Hashing implementations in Clojure[Script]"
   :url "https://github.com/fotoetienne/steadyhash"
   :license {:name "Eclipse Public License"
