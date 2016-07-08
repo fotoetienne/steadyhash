@@ -12,7 +12,7 @@ jdk:
 
 matrix:
   include:
-    - env: TEST_SUIT=cljs
+    - env: TEST_SUITE=cljs
       jdk: oraclejdk8
 
 sudo: required
