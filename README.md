@@ -35,25 +35,70 @@ See Section 3.4:
 http://static.googleusercontent.com/media/research.google.com/en//pubs/archive/44824.pdf
 
 ## Usage
+### Rendezvous hashing
+
+    (require '[stable-hash.rendezvous :as r])
+
+Given a list of nodes,
+
+    (def nodes [:a :b :c :d])
+
+find the assigned node for a given item.
+
+    (r/highest-random-weight nodes :foo)
+    ;; => :c
+
+Assignment will be distributed evenly amongst nodes.
+
+    (->> (pmap (partial highest-random-weight nodes) (range 4e5))
+      frequencies)
+    ;; => {:a 99358, :b 99871, :c 100300, :d 100471}
+
+You can create a lookup table for faster lookups.
+
+    (def table (m/populate nodes))
+
+Look up values in the table.
+
+    (m/lookup table :foo)
+    ;; => :a
+    (m/lookup table :bar)
+    ;; => :b
+
+The downside to a lookup table is that assignment will be somewhat less equal amongst nodes.
+
+    (frequencies table)
+    ;; => {:a 109, :b 99, :c 109, :d 84}
+
+    (->> (pmap (partial lookup table) (range 4e5))
+      frequencies)
+    ;; => {:a 108887, :b 98564, :c 109088, :d 83461}
+
 ### Maglev hashing
 
-  (require '[stable-hash.maglev :as m])
+Maglev hashing is designed for cases where a lookup table is necessary because the number of nodes is high and latency needs to be minimal.
 
-Create a lookup table from a list of nodes
+    (require '[stable-hash.maglev :as m])
 
-  (def table (m/populate [:a :b :c :d]))
+Create a lookup table from a list of nodes.
 
-Look up values in the table
+    (def table (m/populate [:a :b :c :d]))
 
-  (m/lookup table :foo)
-  ;; => :d
-  (m/lookup table :bar)
-  ;; => :c
+Look up values in the table.
 
-See that the table is evenly distributed
+    (m/lookup table :foo)
+    ;; => :d
+    (m/lookup table :bar)
+    ;; => :c
 
-  (frequencies table)
-  ;; => {:c 100, :b 100, :d 100, :a 101}
+See that the table is evenly distributed.
+
+    (frequencies table)
+    ;; => {:a 101, :b 100, :c 100, :d 100}
+
+    (->> (pmap (partial lookup table) (range 4e5))
+      frequencies)
+    ;; => {:a 100924, :b 99901, :c 99628, :d 99547}
 
 ### Requirements
 

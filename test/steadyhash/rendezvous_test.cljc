@@ -24,7 +24,6 @@
   (prop/for-all [nodes (gen/vector gen/uuid 2 20)]
     (let [n 1e3 ; number of lookups
           nodes (set nodes)
-          table (r/populate nodes)
           lookups (pmap (partial r/highest-random-weight nodes) (range (* n (count nodes))))
           freqs (vals (frequencies lookups))
           percent-diff (-> (apply max freqs) (- n) (/ n) (* 100.0))]

@@ -39,4 +39,8 @@
   (lookup table :bar) ; => :c
 
   (frequencies table) ; => {:c 100, :b 100, :d 100, :a 101}
+
+  (->> (pmap (partial lookup table) (range 4e5))
+    frequencies)
+  ;; => {:d 99547, :a 100924, :c 99628, :b 99901}
 )

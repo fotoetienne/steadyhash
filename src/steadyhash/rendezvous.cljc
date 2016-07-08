@@ -30,9 +30,20 @@
 
 (comment
   ;; Example:
-  (def table (populate [:a :b :c :d]))
-  (lookup table :foo) ; => :b
-  (lookup table :bar) ; => :a
+  (def nodes [:a :b :c :d])
+  (highest-random-weight nodes :foo) ; => :c
+
+  (->> (pmap (partial highest-random-weight nodes) (range 4e5))
+    frequencies)
+  ;; => {:a 99358, :c 100300, :b 99871, :d 100471}
+
+  (def table (populate nodes))
+  (lookup table :foo) ; => :a
+  (lookup table :bar) ; => :b
 
   (frequencies table) ; => {:a 109, :c 109, :b 99, :d 84}
+
+  (->> (pmap (partial lookup table) (range 4e5))
+    frequencies)
+  ;; => {:b 98564, :d 83461, :a 108887, :c 109088}
 )
