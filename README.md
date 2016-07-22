@@ -47,7 +47,7 @@ Consistent hashing using the "Maglev Hash" method as described in Google's 2016 
 ## Usage
 ### Rendezvous hashing
 
-    (require '[stable-hash.rendezvous :as r])
+    (require '[steadyhash.rendezvous :as r])
 
 Given a list of nodes,
 
